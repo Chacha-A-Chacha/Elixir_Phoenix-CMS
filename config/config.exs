@@ -7,6 +7,10 @@
 # General application configuration
 import Config
 
+# Load environment variables with Dotenvy
+import Dotenvy
+source([".env"])
+
 config :cms,
   ecto_repos: [Cms.Repo],
   generators: [timestamp_type: :utc_datetime]
