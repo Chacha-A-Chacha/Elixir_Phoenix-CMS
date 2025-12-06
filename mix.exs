@@ -40,7 +40,6 @@ defmodule Cms.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:dotenvy, "~> 0.8.0"},
       {:phoenix, "~> 1.8.2"},
       {:phoenix_ecto, "~> 4.5"},
       {:ecto_sql, "~> 3.13"},
@@ -59,6 +58,9 @@ defmodule Cms.MixProject do
        app: false,
        compile: false,
        depth: 1},
+
+      # Environment variables
+      {:dotenvy, "~> 1.0.0"},
       {:swoosh, "~> 1.16"},
       {:req, "~> 0.5"},
       {:telemetry_metrics, "~> 1.0"},

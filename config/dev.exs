@@ -2,13 +2,13 @@ import Config
 
 # Configure your database
 config :cms, Cms.Repo,
-  username: System.get_env("DATABASE_USER") || "postgres",
-  password: System.get_env("DATABASE_PASSWORD") || "postgres",
-  hostname: System.get_env("DATABASE_HOST") || "localhost",
-  database: System.get_env("DATABASE_NAME") || "cms_dev",
+  username: env!("DATABASE_USER", :string, "postgres"),
+  password: env!("DATABASE_PASSWORD", :string, "postgres"),
+  hostname: env!("DATABASE_HOST", :string, "localhost"),
+  database: env!("DATABASE_NAME", :string, "cms_dev"),
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+  pool_size: env!("DB_POOL_SIZE", :integer, 10)
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
@@ -24,8 +24,11 @@ config :cms, CmsWeb.Endpoint,
   code_reloader: true,
   debug_errors: true,
   secret_key_base:
-    System.get_env("SECRET_KEY_BASE") ||
-      "9zxw8sCSaULS34y1onOdrLZlw62hBmxGs58xI6Jl8NEp8h9PpzfJGnKJ76S62gkG",
+    env!(
+      "SECRET_KEY_BASE",
+      :string,
+      "9zxw8sCSaULS34y1onOdrLZlw62hBmxGs58xI6Jl8NEp8h9PpzfJGnKJ76S62gkG"
+    ),
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:cms, ~w(--sourcemap=inline --watch)]},
     tailwind: {Tailwind, :install_and_run, [:cms, ~w(--watch)]}
