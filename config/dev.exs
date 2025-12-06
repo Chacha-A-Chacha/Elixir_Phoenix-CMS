@@ -2,10 +2,10 @@ import Config
 
 # Configure your database
 config :cms, Cms.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "cms_dev",
+  username: System.get_env("DATABASE_USER") || "postgres",
+  password: System.get_env("DATABASE_PASSWORD") || "postgres",
+  hostname: System.get_env("DATABASE_HOST") || "localhost",
+  database: System.get_env("DATABASE_NAME") || "cms_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -23,7 +23,9 @@ config :cms, CmsWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "9zxw8sCSaULS34y1onOdrLZlw62hBmxGs58xI6Jl8NEp8h9PpzfJGnKJ76S62gkG",
+  secret_key_base:
+    System.get_env("SECRET_KEY_BASE") ||
+      "9zxw8sCSaULS34y1onOdrLZlw62hBmxGs58xI6Jl8NEp8h9PpzfJGnKJ76S62gkG",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:cms, ~w(--sourcemap=inline --watch)]},
     tailwind: {Tailwind, :install_and_run, [:cms, ~w(--watch)]}
