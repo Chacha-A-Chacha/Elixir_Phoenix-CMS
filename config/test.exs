@@ -1,4 +1,7 @@
 import Config
+import Dotenvy
+
+source([".env.test"], optional: true)
 
 # Configure your database
 #
@@ -6,9 +9,9 @@ import Config
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :cms, Cms.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
+  username: env!("DATABASE_USER", :string, "postgres"),
+  password: env!("DATABASE_PASSWORD", :string, "postgres"),
+  hostname: env!("DATABASE_HOST", :string, "localhost"),
   database: "cms_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: System.schedulers_online() * 2
