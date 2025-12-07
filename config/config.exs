@@ -6,10 +6,17 @@
 
 # General application configuration
 import Config
+import Dotenvy
+
+# Load environment variables from .env file
+if File.exists?("..env") do
+  source([".env"])
+end
 
 config :cms,
   ecto_repos: [Cms.Repo],
   generators: [timestamp_type: :utc_datetime]
+  env: env!("MIX_ENV", :atom, :dev)
 
 # Configure the endpoint
 config :cms, CmsWeb.Endpoint,

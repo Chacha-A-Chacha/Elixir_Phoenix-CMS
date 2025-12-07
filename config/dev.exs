@@ -1,7 +1,7 @@
 import Config
 import Dotenvy
 
-source([".env"])
+# source([".env"])
 
 # Configure your database
 config :cms, Cms.Repo,
